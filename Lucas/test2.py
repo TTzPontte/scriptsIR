@@ -5,7 +5,7 @@ import requests as re
 
 from Lucas.helpers import csv_to_json
 
-DOCUMENT_PATH = '/Users/Mr-i-me/code/Mr-i-me-pontte/Pontte/ir/scriptsIR/Lucas/Data/data_file.xlsx'
+DOCUMENT_PATH = '/Data/data_file.xlsx'
 
 
 @dataclass
@@ -58,4 +58,4 @@ if __name__ == '__main__':
     # idd = 129241
     # resp = getIR(idd)
     # x = csv_to_json(url)
- contractInfo, participants, receiverInfo, installments }
+ # contractInfo, participants, receiverInfo, installments }

@@ -1,0 +1,16 @@
+
+spython:S117"WRename this local variable "dataIR" to match the regular expression ^[_a-z][a-z0-9_]*$.(˜Ë°®˚ˇˇˇˇ
+bpython:S1542"KRename function "getIR" to match the regular expression ^[a-z_][a-z0-9_]*$.(≥ï•+
+tpython:S117&"XRename this local variable "dataApi" to match the regular expression ^[_a-z][a-z0-9_]*$.(Î‡èÙ¯ˇˇˇˇ
+dpython:S1542"MRename function "bateApi" to match the regular expression ^[a-z_][a-z0-9_]*$.(øÓÄ
+spython:S117;"\Rename this local variable "AztContrato" to match the regular expression ^[_a-z][a-z0-9_]*$.(≈ññ°
+zpython:S117A"cRename this local variable "AztDadosCadastrais" to match the regular expression ^[_a-z][a-z0-9_]*$.(π˚ÕŸ
+spython:S117:"\Rename this local variable "AztFinances" to match the regular expression ^[_a-z][a-z0-9_]*$.(’∏˛“
+mpython:S117="VRename this local variable "AztIR" to match the regular expression ^[_a-z][a-z0-9_]*$.(í£èﬂ
+ppython:S117D"YRename this local variable "Contract" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÅÊô‡
+qpython:S117?"ZRename this local variable "docNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.(Í≠‹à
+wpython:S117>"`Rename this local variable "mainParticipant" to match the regular expression ^[_a-z][a-z0-9_]*$.(Î©√–
+kpython:S1542."SRename function "createPayload" to match the regular expression ^[a-z_][a-z0-9_]*$.(ê∂∂ê
+Jpython:S14815"-Remove the unused local variable "error_ids".(à¨Âˇ¯ˇˇˇˇ
+lpython:S3776."TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(ê∂∂ê
+Apython:S108ù")Either remove or fill this block of code.(„ë€æ

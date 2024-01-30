@@ -5,7 +5,9 @@ import pandas as pd
 from contract_builder import fixedContract
 import datetime
 
-flcci = pd.read_excel(R'C:\Users\PerdoCaiafa\Pontte-Servicer\IR\fluxocci.xlsx')
+path = '/Data/IR_CRI_V2.xlsx'
+# flcci = pd.read_excel(R'C:\Users\PerdoCaiafa\Pontte-Servicer\IR\fluxocci.xlsx')
+flcci = pd.read_excel(path)
 ids = flcci.loc[flcci['Status do Contrato'] != 'ATIVO (QUITADO)']['Identificador do Contrato'].unique()
 
 
