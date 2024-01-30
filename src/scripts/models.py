@@ -8,14 +8,12 @@ logging.basicConfig(level=logging.INFO)
 # Define data classes for better structure and readability
 @dataclass
 class ContractInfo:
+    total: float
     balance: float
-    block: str
     base_year: str
+    development: str
     contract_number: int
     date: str
-    development: str
-    email: str
-    unit: str
 
 
 @dataclass

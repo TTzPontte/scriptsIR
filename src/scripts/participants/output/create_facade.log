@@ -55,3 +55,5 @@
 2024-01-30 14:18:37,223 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
 2024-01-30 15:52:05,779 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
 2024-01-30 15:52:08,250 - INFO - Total Records: 470
+2024-01-30 18:22:59,966 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-30 18:23:03,543 - INFO - Total Records: 470

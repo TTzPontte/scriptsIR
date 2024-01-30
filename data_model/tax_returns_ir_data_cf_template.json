@@ -1,0 +1,138 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "taxIrContracts": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "contractId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "contractId",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "tax_ir_contracts"
+      }
+    },
+    "taxIrParticipants": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "documentNumber",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "contractId",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "documentNumber",
+            "KeySchema": [
+              {
+                "AttributeName": "documentNumber",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          },
+          {
+            "IndexName": "tax_ir_contractId_gsi",
+            "KeySchema": [
+              {
+                "AttributeName": "contractId",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "tax_ir_participants"
+      },
+      "DependsOn": "tax_ir_contracts"
+    },
+    "taxIrInstallments": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "contractId",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "tax_ir_contractId_gsi",
+            "KeySchema": [
+              {
+                "AttributeName": "contractId",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "tax_ir_installments"
+      },
+      "DependsOn": "tax_ir_participants"
+    },
+    "taxIrBalance": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "contractId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "contractId",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [],
+        "BillingMode": "PAY_PER_REQUEST",
+        "TableName": "tax_ir_balance"
+      },
+      "DependsOn": "tax_ir_installments"
+    }
+  }
+}

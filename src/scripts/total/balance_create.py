@@ -3,8 +3,8 @@ import uuid
 from dataclasses import dataclass, field
 from decimal import Decimal
 
-from src.scripts.local import LocalDynamoDBDAO
-from src.scripts.xlsx_helpers import csv_to_json
+from src.scripts.helpers.local_dao import LocalDynamoDBDAO
+from src.scripts.helpers.xlsx_helpers import csv_to_json
 
 # Constants
 INPUT_DOCUMENT_PATH = 'input_data/saldo.xlsx'

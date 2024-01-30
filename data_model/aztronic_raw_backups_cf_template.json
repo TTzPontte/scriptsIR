@@ -1,0 +1,364 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "azClienteRaw": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "cnpj_cpf",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "cnpj_cpf",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [],
+        "BillingMode": "PROVISIONED",
+        "TableName": "az_cliente_raw",
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      }
+    },
+    "TableazClienteRawReadCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_cliente_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_cliente_raw",
+        "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazClienteRawReadCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_cliente_rawReadCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_cliente_raw",
+        "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+        "PolicyName": "az_cliente_raw-read-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "TableazClienteRawWriteCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_cliente_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_cliente_raw",
+        "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazClienteRawWriteCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_cliente_rawWriteCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_cliente_raw",
+        "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+        "PolicyName": "az_cliente_raw-write-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "azInformeIrRaw": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "contract_id",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "az_raw_contractId_gsi",
+            "KeySchema": [
+              {
+                "AttributeName": "contract_id",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 1,
+              "WriteCapacityUnits": 1
+            }
+          }
+        ],
+        "BillingMode": "PROVISIONED",
+        "TableName": "az_informe_ir_raw",
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      },
+      "DependsOn": "az_cliente_raw"
+    },
+    "TableazInformeIrRawReadCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_informe_ir_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw",
+        "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazInformeIrRawReadCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_informe_ir_rawReadCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw",
+        "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+        "PolicyName": "az_informe_ir_raw-read-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "TableazInformeIrRawWriteCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_informe_ir_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw",
+        "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazInformeIrRawWriteCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_informe_ir_rawWriteCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw",
+        "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+        "PolicyName": "az_informe_ir_raw-write-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "TableazInformeIrRawIndexazRawContractIdGsiReadCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_informe_ir_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw/index/az_raw_contractId_gsi",
+        "ScalableDimension": "dynamodb:index:ReadCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazInformeIrRawIndexazRawContractIdGsiReadCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_informe_ir_rawIndexaz_raw_contractId_gsiReadCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw/index/az_raw_contractId_gsi",
+        "ScalableDimension": "dynamodb:index:ReadCapacityUnits",
+        "PolicyName": "az_informe_ir_raw-index-az_raw_contractId_gsi-read-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "TableazInformeIrRawIndexazRawContractIdGsiWriteCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_informe_ir_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw/index/az_raw_contractId_gsi",
+        "ScalableDimension": "dynamodb:index:WriteCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazInformeIrRawIndexazRawContractIdGsiWriteCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_informe_ir_rawIndexaz_raw_contractId_gsiWriteCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_informe_ir_raw/index/az_raw_contractId_gsi",
+        "ScalableDimension": "dynamodb:index:WriteCapacityUnits",
+        "PolicyName": "az_informe_ir_raw-index-az_raw_contractId_gsi-write-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "azPosicaoFinanceiraRaw": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "id_contrato",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id_contrato",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [],
+        "BillingMode": "PROVISIONED",
+        "TableName": "az_posicao_financeira_raw",
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        }
+      },
+      "DependsOn": "az_informe_ir_raw"
+    },
+    "TableazPosicaoFinanceiraRawReadCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_posicao_financeira_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_posicao_financeira_raw",
+        "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazPosicaoFinanceiraRawReadCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_posicao_financeira_rawReadCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_posicao_financeira_raw",
+        "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+        "PolicyName": "az_posicao_financeira_raw-read-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    },
+    "TableazPosicaoFinanceiraRawWriteCapacityScalableTarget": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "DependsOn": "az_posicao_financeira_raw",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_posicao_financeira_raw",
+        "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+        "MinCapacity": 1,
+        "MaxCapacity": 10,
+        "RoleARN": {
+          "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+        }
+      }
+    },
+    "TableazPosicaoFinanceiraRawWriteCapacityScalingPolicy": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "DependsOn": "Tableaz_posicao_financeira_rawWriteCapacityScalableTarget",
+      "Properties": {
+        "ServiceNamespace": "dynamodb",
+        "ResourceId": "table/az_posicao_financeira_raw",
+        "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+        "PolicyName": "az_posicao_financeira_raw-write-capacity-scaling-policy",
+        "PolicyType": "TargetTrackingScaling",
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+          },
+          "ScaleOutCooldown": 60,
+          "ScaleInCooldown": 60,
+          "TargetValue": 70
+        }
+      }
+    }
+  }
+}

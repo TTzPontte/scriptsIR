@@ -11,7 +11,7 @@ from src.scripts.helpers.local_dao import LocalDynamoDBDAO
 # Import external functions and modules
 
 # Constants
-INPUT_DOCUMENT_PATH = '/Users/Mr-i-me/PycharmProjects/my_scripts/Sam/sam-python-crud-sample/src/scripts/participants/input_data/installments.xlsx'
+INPUT_DOCUMENT_PATH = '/Users/Mr-i-me/PycharmProjects/my_scripts/Sam/scripts-ir/src/scripts/participants/input_data/installments.xlsx'
 
 
 def uid() -> str: return uuid.uuid4().__str__()

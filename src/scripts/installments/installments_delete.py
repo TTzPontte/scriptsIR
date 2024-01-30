@@ -2,7 +2,6 @@ import logging
 from dataclasses import dataclass, field
 
 from src.scripts.helpers.local_dao import LocalDynamoDBDAO
-from src.scripts.xlsx_helpers import csv_to_json
 
 # Import external functions and modules
 

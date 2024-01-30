@@ -1,6 +1,6 @@
-# sam-python-crud-sample
+# scripts-ir
 
-![Github Workflow](https://github.com/aws-samples/sam-python-crud-sample/workflows/Python%20package/badge.svg)
+![Github Workflow](https://github.com/aws-samples/scripts-ir/workflows/Python%20package/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 This project is an example of lambda, SAM, dynamodb. This repository contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
@@ -32,20 +32,20 @@ These instructions will get you a copy of the project up and running on your loc
 First of all you need to clone this repository:
 
 ``` bash
-git clone https://github.com/aws-samples/sam-python-crud-sample.git
+git clone https://github.com/aws-samples/scripts-ir.git
 ```
 
 After clone it, access the folder and you'll need to create a docker network and launch the dynamodb local:
 
 ```bash
-#cd sam-python-crud-sample
+#cd scripts-ir
 make dkn
 make dkr
 ```
 
 #### DynamoDB Local
 
-See this [DYNAMO.md](https://github.com/aws-samples/sam-python-crud-sample/blob/main/DYNAMO.md)
+See this [DYNAMO.md](https://github.com/aws-samples/scripts-ir/blob/main/DYNAMO.md)
 
 ## Running the unit tests
 
@@ -140,7 +140,7 @@ To simplify troubleshooting, SAM CLI has a command called `sam logs`. `sam logs`
 `NOTE`: This command works for all AWS Lambda functions; not just the ones you deploy using SAM.
 
 ```bash
-sam logs -n <Function> --stack-name sam-python-crud-sample --tail
+sam logs -n <Function> --stack-name scripts-ir --tail
 ```
 
 You can find more information and examples about filtering Lambda function logs in the [SAM CLI Documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-logging.html).
@@ -150,7 +150,7 @@ You can find more information and examples about filtering Lambda function logs 
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
 ```bash
-aws cloudformation delete-stack --stack-name sam-python-crud-sample
+aws cloudformation delete-stack --stack-name scripts-ir
 ```
 
 ## Resources
@@ -161,7 +161,7 @@ See the [AWS SAM developer guide](https://docs.aws.amazon.com/serverless-applica
 
 - **Claick Oliveira** - *Initial work* - [claick-oliveira](https://github.com/claick-oliveira)
 
-See also the list of [contributors](https://github.com/aws-samples/sam-python-crud-sample/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/aws-samples/scripts-ir/contributors) who participated in this project.
 
 ## Security
 

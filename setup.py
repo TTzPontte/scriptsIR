@@ -15,9 +15,9 @@ def read(filename):
 
 
 setup(
-    name="sam-python-crud-sample",
+    name="scripts-ir",
     version="0.1.0",
-    url="https://github.com/aws-samples/sam-python-crud-sample",
+    url="https://github.com/aws-samples/scripts-ir",
     license='MIT',
     author="Claick Oliveira",
     author_email="",

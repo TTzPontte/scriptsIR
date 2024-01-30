@@ -1,61 +1,60 @@
 import logging
+import uuid
 from dataclasses import dataclass, field
-
 from src.scripts.helpers.local_dao import LocalDynamoDBDAO
-from src.scripts.xlsx_helpers import csv_to_json
-
-# Import external functions and modules
+from src.scripts.helpers.xlsx_helpers import csv_to_json
 
 # Constants
 INPUT_DOCUMENT_PATH = 'output/modified_installments.xlsx'
-import uuid
 
 
-def uid() -> str: return uuid.uuid4().__str__()
+def generate_unique_id() -> str:
+    return str(uuid.uuid4())
 
 
 @dataclass
-class Facade:
-    _ir_list: list = field(default_factory=list)
-    response_list: list = field(default_factory=list)
-    pdfs_list: list = field(default_factory=list)
+class InstallmentsFacade:
     bad_contracts: list = field(default_factory=list)
 
     def __post_init__(self):
         self.records = csv_to_json(INPUT_DOCUMENT_PATH)
-        self.local_dynamodb = LocalDynamoDBDAO(table_name='tax_ir_installments', endpoint_url='http://localhost:8000')
+        self.local_dynamodb = LocalDynamoDBDAO(
+            table_name='tax_ir_installments',
+            endpoint_url='http://localhost:8000'
+        )
 
     def process_records(self):
         total_records = len(self.records)
         logging.info(f"Total Records: {total_records}")
         self.processed_records = []
-        try:
-            for idx, contract in enumerate(self.records):
-                contract_id = contract.get('contractId', None)
-                if contract_id:
-                    record = {
-                        "id": uid(),
-                        **contract,
-                        "contractId": str(contract_id)
-                    }
-                    self.processed_records.append(record)
+        for idx, contract in enumerate(self.records):
+            contract_id = contract.get('contractId')
+            if contract_id:
+                record = {
+                    "id": generate_unique_id(),
+                    **contract,
+                    "contractId": str(contract_id)
+                }
+                self.processed_records.append(record)
+            else:
+                self.bad_contracts.append(f"Missing 'contractId' in record {idx + 1}")
 
-        except Exception as e:
-            self.bad_contracts.append(e)
-
-    def _save_records(self):
-        for i in self.processed_records:
-            item = self.local_dynamodb.put_item(i)
-            print(item)
+    def save_records(self):
+        for record in self.processed_records:
+            self.local_dynamodb.put_item(record)
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     print("Initializing...")
-    facade = Facade()
+    facade = InstallmentsFacade()
     print("Processing records...")
     facade.process_records()
-    print("Generating PDFs...")
-    items = facade.local_dynamodb.scan()
-    print(items)
-    facade._save_records()
+
+    if facade.bad_contracts:
+        for error in facade.bad_contracts:
+            logging.error(error)
+
+    print("Saving records to DynamoDB...")
+    facade.save_records()
     print("DONE!")

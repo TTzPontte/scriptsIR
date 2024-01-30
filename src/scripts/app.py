@@ -1,6 +1,6 @@
 import requests
 from dataclasses import dataclass, field
-from config import AZT_API_TOKEN  # Ensure AZT_API_TOKEN is set in your config.py
+from src.scripts.helpers.config import AZT_API_TOKEN  # Ensure AZT_API_TOKEN is set in your config.py
 
 @dataclass
 class AztronicHelper:

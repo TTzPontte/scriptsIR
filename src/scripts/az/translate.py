@@ -3,7 +3,7 @@ import requests
 from dataclasses import dataclass
 import logging
 
-from src.scripts.config import AZT_API_TOKEN
+from src.scripts.helpers.config import AZT_API_TOKEN
 
 
 @dataclass

@@ -1,10 +1,9 @@
 import logging
 import uuid
 from dataclasses import dataclass, field
-from decimal import Decimal
 
 from src.scripts.helpers.dao import Dao
-from src.scripts.xlsx_helpers import csv_to_json
+from src.scripts.helpers.xlsx_helpers import csv_to_json
 
 # Constants
 INPUT_DOCUMENT_PATH = 'input_data/saldo.xlsx'
