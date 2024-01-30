@@ -1,0 +1,17 @@
+2024-01-29 14:16:50,497 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:17:33,283 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:17:55,462 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:26:19,048 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:31:57,549 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:32:43,209 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:34:30,085 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:34:50,850 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:35:20,700 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:35:49,651 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:36:01,320 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:37:03,842 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:37:11,548 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:47:33,145 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-29 14:47:33,175 - ERROR - Error loading CSV data: openpyxl does not support .csv file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
+2024-01-29 14:47:33,176 - ERROR - Error processing records: openpyxl does not support .csv file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
+2024-01-29 14:47:33,176 - ERROR - An error occurred: openpyxl does not support .csv file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm

@@ -1,0 +1,90 @@
+{
+  "TaxReturnId": "130458",
+  "contractInfo": {
+    "ANO BASE": "2022",
+    "BLOCO": "ÚNICO",
+    "CONTRATO": 130458,
+    "DATA": "20/04/2023",
+    "EMAIL": "lucas@pontte.com.br",
+    "EMPREENDIMENTO": "PONTTE - HOME EQUITY",
+    "SALDO": 0,
+    "saldo": "R$ 0,00",
+    "UNIDADE": "102"
+  },
+  "installments": [
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "1/2022",
+      "payedInstallment": "1 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "2/2022",
+      "payedInstallment": "2 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "3/2022",
+      "payedInstallment": "3 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "4/2022",
+      "payedInstallment": "4 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "5/2022",
+      "payedInstallment": "5 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "6/2022",
+      "payedInstallment": "6 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "7/2022",
+      "payedInstallment": "7 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "8/2022",
+      "payedInstallment": "8 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "9/2022",
+      "payedInstallment": "9 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "10/2022",
+      "payedInstallment": "10 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "11/2022",
+      "payedInstallment": "11 - Mensal"
+    },
+    {
+      "amoutPayed": "R$ 0,00",
+      "creditDate": "12/2022",
+      "payedInstallment": "12 - Mensal"
+    }
+  ],
+  "participants": [
+    {
+      "documentNumber": "115.142.158-88",
+      "email": "lucas@pontte.com.br",
+      "name": "LUCAS REIS SOUZA",
+      "participation": 100
+    }
+  ],
+  "receiverInfo": {
+    "address": "Av. Brg. Faria Lima, 1485 - 18º andar - Pinheiros, São Paulo - SP, 01452-002",
+    "cnpj": "30.982.547/0001-09",
+    "date": "SÃO PAULO, 05 DE FEVEREIRO DE 2023",
+    "receiver": "MAUÁ CAPITAL REAL ESTATE DEBT III \n FUNDO DE INVESTIMENTO MULTIMERCADO"
+  }
+}

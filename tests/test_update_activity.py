@@ -3,7 +3,7 @@ import json
 import os
 from moto import mock_dynamodb2
 from unittest.mock import patch
-from src.update_activity import app
+from src.Activities.update_activity import app
 from contextlib import contextmanager
 from boto3.dynamodb.conditions import Key
 

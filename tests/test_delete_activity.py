@@ -3,7 +3,7 @@ import json
 import os
 from moto import mock_dynamodb2
 from unittest.mock import patch
-from src.delete_activity import app
+from src.Activities.delete_activity import app
 from contextlib import contextmanager
 
 table_name = 'Activities'

@@ -1,0 +1,285 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "taxIrContracts": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "KeySchema": [
+                    {
+                        "AttributeName": "id",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "id",
+                        "AttributeType": "S"
+                    }
+                ],
+                "GlobalSecondaryIndexes": [],
+                "BillingMode": "PROVISIONED",
+                "TableName": "tax_ir_contracts",
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": 5,
+                    "WriteCapacityUnits": 5
+                }
+            }
+        },
+        "TabletaxIrContractsReadCapacityScalableTarget": {
+            "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+            "DependsOn": "tax_ir_contracts",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_contracts",
+                "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+                "MinCapacity": 1,
+                "MaxCapacity": 10,
+                "RoleARN": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+                }
+            }
+        },
+        "TabletaxIrContractsReadCapacityScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "DependsOn": "Tabletax_ir_contractsReadCapacityScalableTarget",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_contracts",
+                "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+                "PolicyName": "tax_ir_contracts-read-capacity-scaling-policy",
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingScalingPolicyConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+                    },
+                    "ScaleOutCooldown": 60,
+                    "ScaleInCooldown": 60,
+                    "TargetValue": 70
+                }
+            }
+        },
+        "TabletaxIrContractsWriteCapacityScalableTarget": {
+            "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+            "DependsOn": "tax_ir_contracts",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_contracts",
+                "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+                "MinCapacity": 1,
+                "MaxCapacity": 10,
+                "RoleARN": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+                }
+            }
+        },
+        "TabletaxIrContractsWriteCapacityScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "DependsOn": "Tabletax_ir_contractsWriteCapacityScalableTarget",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_contracts",
+                "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+                "PolicyName": "tax_ir_contracts-write-capacity-scaling-policy",
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingScalingPolicyConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+                    },
+                    "ScaleOutCooldown": 60,
+                    "ScaleInCooldown": 60,
+                    "TargetValue": 70
+                }
+            }
+        },
+        "taxIrParticipants": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "KeySchema": [
+                    {
+                        "AttributeName": "id",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "id",
+                        "AttributeType": "S"
+                    }
+                ],
+                "GlobalSecondaryIndexes": [
+                    {
+                        "IndexName": "contractId",
+                        "KeySchema": [
+                            {
+                                "AttributeName": "id",
+                                "KeyType": "HASH"
+                            }
+                        ],
+                        "Projection": {
+                            "ProjectionType": "ALL"
+                        },
+                        "ProvisionedThroughput": {
+                            "ReadCapacityUnits": 1,
+                            "WriteCapacityUnits": 1
+                        }
+                    }
+                ],
+                "BillingMode": "PROVISIONED",
+                "TableName": "tax_ir_participants",
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": 5,
+                    "WriteCapacityUnits": 5
+                }
+            },
+            "DependsOn": "tax_ir_contracts"
+        },
+        "TabletaxIrParticipantsReadCapacityScalableTarget": {
+            "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+            "DependsOn": "tax_ir_participants",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants",
+                "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+                "MinCapacity": 1,
+                "MaxCapacity": 10,
+                "RoleARN": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+                }
+            }
+        },
+        "TabletaxIrParticipantsReadCapacityScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "DependsOn": "Tabletax_ir_participantsReadCapacityScalableTarget",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants",
+                "ScalableDimension": "dynamodb:table:ReadCapacityUnits",
+                "PolicyName": "tax_ir_participants-read-capacity-scaling-policy",
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingScalingPolicyConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+                    },
+                    "ScaleOutCooldown": 60,
+                    "ScaleInCooldown": 60,
+                    "TargetValue": 70
+                }
+            }
+        },
+        "TabletaxIrParticipantsWriteCapacityScalableTarget": {
+            "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+            "DependsOn": "tax_ir_participants",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants",
+                "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+                "MinCapacity": 1,
+                "MaxCapacity": 10,
+                "RoleARN": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+                }
+            }
+        },
+        "TabletaxIrParticipantsWriteCapacityScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "DependsOn": "Tabletax_ir_participantsWriteCapacityScalableTarget",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants",
+                "ScalableDimension": "dynamodb:table:WriteCapacityUnits",
+                "PolicyName": "tax_ir_participants-write-capacity-scaling-policy",
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingScalingPolicyConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+                    },
+                    "ScaleOutCooldown": 60,
+                    "ScaleInCooldown": 60,
+                    "TargetValue": 70
+                }
+            }
+        },
+        "TabletaxIrParticipantsIndexcontractIdReadCapacityScalableTarget": {
+            "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+            "DependsOn": "tax_ir_participants",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants/index/contractId",
+                "ScalableDimension": "dynamodb:index:ReadCapacityUnits",
+                "MinCapacity": 1,
+                "MaxCapacity": 10,
+                "RoleARN": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+                }
+            }
+        },
+        "TabletaxIrParticipantsIndexcontractIdReadCapacityScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "DependsOn": "Tabletax_ir_participantsIndexcontractIdReadCapacityScalableTarget",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants/index/contractId",
+                "ScalableDimension": "dynamodb:index:ReadCapacityUnits",
+                "PolicyName": "tax_ir_participants-index-contractId-read-capacity-scaling-policy",
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingScalingPolicyConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "DynamoDBReadCapacityUtilization"
+                    },
+                    "ScaleOutCooldown": 60,
+                    "ScaleInCooldown": 60,
+                    "TargetValue": 70
+                }
+            }
+        },
+        "TabletaxIrParticipantsIndexcontractIdWriteCapacityScalableTarget": {
+            "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+            "DependsOn": "tax_ir_participants",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants/index/contractId",
+                "ScalableDimension": "dynamodb:index:WriteCapacityUnits",
+                "MinCapacity": 1,
+                "MaxCapacity": 10,
+                "RoleARN": {
+                    "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable"
+                }
+            }
+        },
+        "TabletaxIrParticipantsIndexcontractIdWriteCapacityScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "DependsOn": "Tabletax_ir_participantsIndexcontractIdWriteCapacityScalableTarget",
+            "Properties": {
+                "ServiceNamespace": "dynamodb",
+                "ResourceId": "table/tax_ir_participants/index/contractId",
+                "ScalableDimension": "dynamodb:index:WriteCapacityUnits",
+                "PolicyName": "tax_ir_participants-index-contractId-write-capacity-scaling-policy",
+                "PolicyType": "TargetTrackingScaling",
+                "TargetTrackingScalingPolicyConfiguration": {
+                    "PredefinedMetricSpecification": {
+                        "PredefinedMetricType": "DynamoDBWriteCapacityUtilization"
+                    },
+                    "ScaleOutCooldown": 60,
+                    "ScaleInCooldown": 60,
+                    "TargetValue": 70
+                }
+            }
+        },
+        "taxIrContractsReadAutoScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "Properties": {}
+        },
+        "taxIrContractsWriteAutoScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "Properties": {}
+        },
+        "taxIrParticipantsReadAutoScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "Properties": {}
+        },
+        "taxIrParticipantsWriteAutoScalingPolicy": {
+            "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+            "Properties": {}
+        }
+    }
+}

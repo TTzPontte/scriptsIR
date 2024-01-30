@@ -38,7 +38,7 @@ git clone https://github.com/aws-samples/sam-python-crud-sample.git
 After clone it, access the folder and you'll need to create a docker network and launch the dynamodb local:
 
 ```bash
-cd sam-python-crud-sample
+#cd sam-python-crud-sample
 make dkn
 make dkr
 ```
@@ -100,7 +100,7 @@ You can find your API Gateway Endpoint URL in the output values displayed after 
 Build your application with the `sam build --use-container` command.
 
 ```bash
-sam-python-crud-sample$ sam build --use-container
+sam build --use-container
 ```
 
 The SAM CLI installs dependencies defined in `hello_world/requirements.txt`, creates a deployment package, and saves it in the `.aws-sam/build` folder.

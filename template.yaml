@@ -21,30 +21,10 @@ Parameters:
     Default: AWS
 
 Resources:
-  CreateActivityFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: src/create_activity/
-      Handler: app.lambda_handler
-      Runtime: python3.8
-      Environment:
-        Variables:
-          TABLE: !Ref Table
-          REGION: !Ref Region
-          AWSENV: !Ref AWSEnv
-      Events:
-        CreateActivities:
-          Type: Api
-          Properties:
-            Path: /activities
-            Method: post
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ActivitiesTable
   GetActivityFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/get_activity/
+      CodeUri: src/Activities/get_contract/
       Handler: app.lambda_handler
       Runtime: python3.8
       Environment:
@@ -64,7 +44,7 @@ Resources:
   ListActivitiesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/list_activities/
+      CodeUri: src/Activities/list_contract/
       Handler: app.lambda_handler
       Runtime: python3.8
       Environment:
@@ -84,7 +64,7 @@ Resources:
   UpdateActivityFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/update_activity/
+      CodeUri: src/Activities/update_contract/
       Handler: app.lambda_handler
       Runtime: python3.8
       Environment:
@@ -104,7 +84,7 @@ Resources:
   DeleteActivityFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/delete_activity/
+      CodeUri: src/Activities/delete_contract/
       Handler: app.lambda_handler
       Runtime: python3.8
       Environment:
@@ -121,6 +101,27 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref ActivitiesTable
+  CreateActivityFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/Activities/create_contract/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Environment:
+        Variables:
+          TABLE: !Ref Table
+          REGION: !Ref Region
+          AWSENV: !Ref AWSEnv
+      Events:
+        CreateActivities:
+          Type: Api
+          Properties:
+            Path: /activities
+            Method: post
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ActivitiesTable
+
   ActivitiesTable:
     Type: AWS::DynamoDB::Table
     Properties:
