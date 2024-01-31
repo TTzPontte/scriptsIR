@@ -9,29 +9,32 @@ logging.basicConfig(filename=LOG_FILE_PATH, level=logging.INFO, format='%(asctim
 class ContractsDao:
     def __init__(self, table_name='tax_ir_balance'):
         self.dao = Dao(table_name)
-        self.table_name = table_name
+        self.participants_dao = Dao(table_name='tax_ir_participants')
+        self.installments_dao = Dao(table_name='tax_ir_installments')
 
     def get_contract_by_id(self, contract_id):
         key = {'contractId': contract_id}
         return self.dao.get_item(key)
 
-    def retrieve_related_data(self, contract_id, dao, index_name):
-        return dao.get_by_secondary_index(index_name, str(contract_id))
-
     def sum_installment_values(self, installments):
-        return sum(Decimal(installment.get('value', 0)) for installment in installments)
+        total = Decimal(0)
+        for installment in installments:
+            total += Decimal(installment.get('value', 0))
+        return total
 
     def make_contract(self, contract_id):
         contract = self.get_contract_by_id(contract_id)
         if contract:
+            # Extract relevant contract data
             _id = contract.get('contract_id')
             balance = Decimal(contract.get('balance', 0))
 
-            installments = self.retrieve_related_data(contract_id, self.dao, 'tax_ir_contractId_gsi')
+            # Retrieve installments and calculate total paid
+            installments = self.installments_dao.get_by_secondary_index('tax_ir_contractId_gsi', str(contract_id))
             total_paid = self.sum_installment_values(installments)
 
-            participants_dao = Dao(table_name='tax_ir_participants')
-            participants = self.retrieve_related_data(contract_id, participants_dao, 'tax_ir_contractId_gsi')
+            # Retrieve participants
+            participants = self.participants_dao.get_by_secondary_index('tax_ir_contractId_gsi', str(contract_id))
 
             new_record = {
                 'contract_id': str(_id),
@@ -40,6 +43,7 @@ class ContractsDao:
                 "installments": installments,
                 "participants": participants,
             }
+
             return new_record
         else:
             return None
