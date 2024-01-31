@@ -1,0 +1,43 @@
+2024-01-30 19:48:25,670 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-30 19:48:25,720 - INFO - Total Records: 6325
+2024-01-30 19:48:25,738 - ERROR - Missing 'contractId' in record 1
+2024-01-30 19:52:47,514 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-30 19:52:47,577 - INFO - Total Records: 6325
+2024-01-30 19:52:47,595 - ERROR - Missing 'contractId' in record 1
+2024-01-30 19:55:51,855 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-30 19:55:51,920 - INFO - Total Records: 6325
+2024-01-30 19:55:51,937 - ERROR - Missing 'contractId' in record 1
+2024-01-30 20:13:55,715 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-30 20:13:55,752 - INFO - Total Records: 6325
+2024-01-30 20:13:55,769 - ERROR - Missing 'contractId' in record 1
+2024-01-30 20:15:55,067 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-30 20:15:55,103 - INFO - Total Records: 6325
+2024-01-30 20:15:55,120 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:07:52,879 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:07:52,931 - INFO - Total Records: 6325
+2024-01-31 11:07:52,965 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:09:29,143 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:09:29,190 - INFO - Total Records: 6325
+2024-01-31 11:09:29,222 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:12:58,094 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:12:58,142 - INFO - Total Records: 6325
+2024-01-31 11:12:58,173 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:13:23,625 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:13:23,671 - INFO - Total Records: 6325
+2024-01-31 11:13:23,704 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:15:12,160 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:15:12,208 - INFO - Total Records: 6325
+2024-01-31 11:15:12,246 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:16:17,568 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:16:17,632 - INFO - Total Records: 6325
+2024-01-31 11:16:17,664 - ERROR - Missing 'contractId' in record 1
+2024-01-31 11:19:22,301 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:19:22,349 - INFO - Total Records: 6325
+2024-01-31 11:20:01,336 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:20:01,381 - INFO - Total Records: 6325
+2024-01-31 11:20:28,399 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:20:28,424 - INFO - Total Records: 6325
+2024-01-31 11:21:18,605 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:21:18,629 - INFO - Total Records: 6325
+2024-01-31 11:24:45,091 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:24:45,139 - INFO - Total Records: 6325

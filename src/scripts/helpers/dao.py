@@ -3,6 +3,9 @@ import logging
 from dataclasses import dataclass
 from decimal import Decimal
 import boto3
+from boto3.dynamodb.conditions import Key
+from botocore.exceptions import NoCredentialsError
+from dataclasses import dataclass
 
 LOG_FILE_PATH = 'output/create_facade.log'
 logging.basicConfig(filename=LOG_FILE_PATH, level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -13,6 +16,26 @@ class Dao:
         self.table_name = table_name
         self.dynamodb = boto3.resource('dynamodb')
         self.table = self.dynamodb.Table(table_name)
+
+    def handle_no_credentials_error(self):
+        raise Exception("No AWS credentials found. Ensure AWS credentials are configured.")
+
+    def get_by_secondary_index(self, secondary_index_name, secondary_index_key):
+        try:
+            response = self.table.query(
+                IndexName=secondary_index_name,
+                KeyConditionExpression=Key('contractId').eq(secondary_index_key)
+                # Replace with your secondary index key attribute name
+            )
+            return response.get('Items')
+        except NoCredentialsError:
+            self.handle_no_credentials_error()
+
+    def batch_create_items(self, items):
+        items = [Dao.convert_floats_to_decimal(item) for item in items]
+        with self.table.batch_writer() as batch:
+            for item in items:
+                batch.put_item(Item=item)
 
     @staticmethod
     def convert_floats_to_decimal(data):

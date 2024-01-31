@@ -1,3 +1,17 @@
+import logging
+import uuid
+from dataclasses import dataclass, field
+
+from src.scripts.helpers.dao import Dao
+from src.scripts.helpers.xlsx_helpers import csv_to_json
+
+# Constants
+INPUT_DOCUMENT_PATH = 'input_data/saldo.xlsx'
+
+
+def uid() -> str:
+    return uuid.uuid4().__str__()
+
 from decimal import Decimal
 
 import boto3
@@ -80,24 +94,56 @@ class LocalDynamoDBDAO:
         except NoCredentialsError:
             self.handle_no_credentials_error()
 
-    def batch_create_items(self, items):
-        items = [self.convert_floats_to_decimal(item) for item in items]
-        with self.table.batch_writer() as batch:
-            for item in items:
-                batch.put_item(Item=item)
+
+@dataclass
+class Facade:
+    _ir_list: list = field(default_factory=list)
+    response_list: list = field(default_factory=list)
+    pdfs_list: list = field(default_factory=list)
+    bad_contracts: list = field(default_factory=list)
+
+    def __post_init__(self):
+        self.records = csv_to_json(INPUT_DOCUMENT_PATH)
+        self.installments_dao = LocalDynamoDBDAO(table_name='tax_ir_installments', endpoint_url='http://localhost:8000')
+        self.participants_dao = LocalDynamoDBDAO(table_name='tax_ir_participants', endpoint_url='http://localhost:8000')
+        # self.tax_ir_contracts_raw = LocalDynamoDBDAO(table_name='tax_ir_contracts_raw', endpoint_url='http://localhost:8000')
+        self.tax_ir_contracts_raw = Dao(table_name="taxReturns_balance")
+
+    def sum_installment_values(self, installments):
+        return sum(Decimal(installment['value']) for installment in installments)
+
+    def process_records(self):
+        total_records = len(self.records)
+        logging.info(f"Total Records: {total_records}")
+        self.processed_records = []
+
+        for _record in self.records:
+            _id = _record.get('ID', None)  # Ensure the key matches exactly with your data source
+            balance = _record.get('balance', None)  # Ensure the key matches exactly with your data source
+            if _id is not None:
+                installments = self.installments_dao.get_by_secondary_index(str(_id))
+                total_paid = self.sum_installment_values(installments)  # Summing installment values
+                # print(_id)
+                participants = self.participants_dao.get_by_secondary_index(str(_id))
+                # print(participants)
+
+                new_record = {
+                    'contract_id': str(_id),
+                    "balance": balance,
+                    "total_paid": total_paid,  # Storing total paid value
+                    "installments": installments,
+                    "participants": participants,
+                }
+                self.response_list.append(new_record)  # Storing the processed record
+                self.tax_ir_contracts_raw.create_item(new_record)
+        # You might want to handle the processed data here (e.g., generating PDFs)
 
 
-# Usage example
-# ... (existing code) ...
-
-# Usage example
-if __name__ == "__main__":
-    local_dynamodb = LocalDynamoDBDAO(table_name='tax_ir_installments', endpoint_url='http://localhost:8000')
-
-    secondary_index_key_value = '130510'  # Replace with the value you want to query
-
-    items = local_dynamodb.get_by_secondary_index(secondary_index_key_value)
-
-    print(items)
-
-    # ... Other example operations ...
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    print("Initializing...")
+    facade = Facade()
+    print("Processing records...")
+    facade.process_records()
+    print("Generating PDFs...")
+    # Add logic for generating PDFs here

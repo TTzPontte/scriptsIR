@@ -24,13 +24,10 @@ class Facade:
 
     def __post_init__(self):
         self.records = csv_to_json(INPUT_DOCUMENT_PATH)
+        self.balance1 = Dao(table_name='taxReturns_balance')
         self.tax_ir_balance_dao = Dao(table_name='tax_ir_balance')
+        self.records = self.balance1.get_all()
         # self.tax_ir_contracts_raw = Dao(table_name="taxReturns_balance")
-        self.id_list = [record.get('contract_id') for record in self.records if
-                        record.get('contract_id') is not None]
-
-    def sum_installment_values(self, installments):
-        return sum(Decimal(installment['value']) for installment in installments)
 
     def process_records(self):
         total_records = len(self.records)
@@ -38,15 +35,17 @@ class Facade:
         self.processed_records = []
 
         for _record in self.records:
-            _id = _record.get('contractId', None)  # Ensure the key matches exactly with your data source
+            _id = _record.get('contract_id', None)  # Ensure the key matches exactly with your data source
             balance = _record.get('balance', None)  # Ensure the key matches exactly with your data source
-            print(_record)
+            total_paid = _record.get('total_paid', None)  # Ensure the key matches exactly with your data source
             if [*_record].__len__() > 0:
                 new_record = {
                     'contractId': str(_id),
                     "balance": balance,
+                    "total": total_paid
                 }
-                self.tax_ir_balance_dao.put_item(new_record)
+                print(new_record)
+                self.tax_ir_balance_dao.create_item(new_record)
     # You might want to handle the processed data here (e.g., generating PDFs)
 
 

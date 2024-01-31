@@ -24,9 +24,8 @@ class Facade:
 
     def __post_init__(self):
         self.local_dynamodb = Dao('tax_ir_participants')
-        self._dao2 = Dao('TaxReturnsDynamo-dev')
 
-        self.records = self._dao2.get_all()
+        self.records = self.local_dynamodb.get_all()
         # print(self.records)
 
     def process_records(self):
@@ -35,17 +34,12 @@ class Facade:
         self._participants = []
         try:
             for idx, contract in enumerate(self.records):
-                contract_id = contract.get('TaxReturnId', None)
-                participants = contract.get('participants', None)
-                for participant in participants:
-                    _p = {
-                        "id": uid(),
-                        'contractId': contract_id,
-                        **participant
-                    }
-                    self._participants.append(_p)
-                    print(contract_id)
+                participation = contract.get('participation', None)
 
+                contract['participationPercentage'] = participation
+                del contract['participation']
+                print(contract.keys())
+                self._participants.append(contract)
         except Exception as e:
             self.bad_contracts.append(e)
 

@@ -26,13 +26,9 @@ Resources:
       AttributeDefinitions:
         - AttributeName: 'id'
           AttributeType: 'S'
-        - AttributeName: 'date'
-          AttributeType: 'S'
       KeySchema:
         - AttributeName: 'id'
           KeyType: 'HASH'
-        - AttributeName: 'date'
-          KeyType: 'RANGE'
       BillingMode: PAY_PER_REQUEST
 
   TaxIrParticipants:
@@ -65,6 +61,26 @@ Resources:
       BillingMode: PAY_PER_REQUEST
 
   TaxIrInstallments:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: !Sub '${TablePrefix}-installments'
+      AttributeDefinitions:
+        - AttributeName: 'id'
+          AttributeType: 'S'
+        - AttributeName: 'contractId'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'id'
+          KeyType: 'HASH'
+      GlobalSecondaryIndexes:
+        - IndexName: 'ContractIdIndex'
+          KeySchema:
+            - AttributeName: 'contractId'
+              KeyType: 'HASH'
+          Projection:
+            ProjectionType: 'ALL'
+      BillingMode: PAY_PER_REQUEST
+  TaxIrInstallmentsProcessed:
     Type: 'AWS::DynamoDB::Table'
     Properties:
       TableName: !Sub '${TablePrefix}-installments'

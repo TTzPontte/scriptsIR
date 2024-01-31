@@ -15,3 +15,15 @@
 2024-01-29 14:47:33,175 - ERROR - Error loading CSV data: openpyxl does not support .csv file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
 2024-01-29 14:47:33,176 - ERROR - Error processing records: openpyxl does not support .csv file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
 2024-01-29 14:47:33,176 - ERROR - An error occurred: openpyxl does not support .csv file format, please check you can open it with Excel first. Supported formats are: .xlsx,.xlsm,.xltx,.xltm
+2024-01-31 11:54:01,260 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:54:40,372 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 11:54:56,461 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:03:17,737 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:04:23,887 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:05:01,000 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:05:46,677 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:05:57,614 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:06:09,226 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:06:19,786 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:07:27,161 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2024-01-31 12:08:44,988 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
